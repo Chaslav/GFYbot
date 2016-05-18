@@ -96,7 +96,7 @@ do not have an entry in the scripts.json file. */
 -                    
 -
 
-                })
+                }
 
                 return p.then(() => 'speak');
             }
@@ -105,7 +105,7 @@ do not have an entry in the scripts.json file. */
                 .then(getSilent)
                 .then(processMessage);
         }
-    }
+    
 
     
 });
