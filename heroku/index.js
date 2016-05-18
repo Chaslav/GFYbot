@@ -46,7 +46,19 @@ function createWebhook(smoochCore, target) {
         .then((res) => {
             console.log('Smooch webhook created at target', res.webhook.target);
             
-            }   )
+            return smoochCore.webhooks.create({
++                        target,
++                        triggers: ['postback']
++                    })
++                    .then((res) => {
++                        console.log('Smooch postback webhook created at target', res.webhook.target);
++                    })
++                    .catch((err) => {
++                        console.error('Error creating Smooch webhook:', err);
++                        console.error(err.stack);
++                    });
++            }            
++        )
      
 
 // Create a webhook if one doesn't already exist
