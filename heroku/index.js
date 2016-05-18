@@ -74,6 +74,40 @@ if (process.env.SERVICE_URL) {
             }
         });
 }
+/*
+app.post('/webhook', function(req, res, next) {
+    const messages = req.body.messages.reduce((prev, current) => {
+        if (current.role === 'appUser') {
+            prev.push(current);
+        }
+        return prev;
+    }, []);
+
+    if (messages.length === 0) {
+        return res.end();
+    }
+
+    const appUser = req.body.appUser;
+    const userId = appUser.userId || appUser._id;
+    const stateMachine = new StateMachine({
+        script,
+        bot: new BetterSmoochApiBot({
+            name,
+            avatarUrl,
+            lock,
+            store,
+            userId
+        })
+    });
+
+    stateMachine.receiveMessage(messages[0])
+        .then(() => res.end())
+        .catch((err) => {
+            console.error('SmoochBot error:', err);
+            console.error(err.stack);
+            res.end();
+        });
+});     */
 
 app.post('/webhook', function(req, res, next) {
     const messages = req.body.messages.reduce((prev, current) => {
@@ -107,7 +141,8 @@ app.post('/webhook', function(req, res, next) {
             console.error(err.stack);
             res.end();
         });
-});
+});            
+
 
 app.get('/webhook', function (req, res) {
   if (req.query['hub.verify_token'] === 'e3ee919e328d689bdc2b3a66df9be93fe9a87adc') {
