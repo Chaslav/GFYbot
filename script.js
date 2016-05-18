@@ -75,15 +75,26 @@ do not have an entry in the scripts.json file. */
                 }
 
                 var response = scriptRules[upperText];
-                var lines = response.split('\n');
+             /*   var lines = response.split('\n');          Ovo je bilo za get reply deo  umesto ovog ispod             */
+                var lines = response.split(/(<img src=\'[^>]*\'\/>)/);
 
                 var p = Promise.resolve();
                 _.each(lines, function(line) {
                     line = line.trim();
-                    p = p.then(function() {
-                        console.log(line);
-                        return bot.say(line);
-                    });
+                        if (!line.startsWith("<")) {
+-                        p = p.then(function() {
+-                            return bot.say(line);
+-                        });
+-                    } else {
+-                         p = p.then(function() {
+-                             var start = line.indexOf("'") + 1;
+-                             var end = line.lastIndexOf("'");
+-                             var imageFile = line.substring(start, end);
+-                             return bot.sendImage(imageFile);
+-                         });
+-                    }
+-                    
+-
 
                 })
 
