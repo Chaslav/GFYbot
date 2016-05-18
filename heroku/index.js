@@ -31,7 +31,7 @@ class BetterSmoochApiBot extends SmoochApiBot {
     }
 }
 
-const name = 'SmoochBot';
+const name = 'SiergeBot';
 const avatarUrl = 'https://s.gravatar.com/avatar/f91b04087e0125153623a3778e819c0a?s=80';
 const store = new SmoochApiStore({
     jwt
@@ -45,21 +45,24 @@ function createWebhook(smoochCore, target) {
         })
         .then((res) => {
             console.log('Smooch webhook created at target', res.webhook.target);
-            
             return smoochCore.webhooks.create({
-+                        target,
-+                        triggers: ['postback']
-+                    })
-+                    .then((res) => {
-+                        console.log('Smooch postback webhook created at target', res.webhook.target);
-+                    })
-+                    .catch((err) => {
-+                        console.error('Error creating Smooch webhook:', err);
-+                        console.error(err.stack);
-+                    });
-+            }            
-+        )
-     
+                        target,
+                        triggers: ['postback']
+                    })
+                    .then((res) => {
+                        console.log('Smooch postback webhook created at target', res.webhook.target);
+                    })
+                    .catch((err) => {
+                        console.error('Error creating Smooch webhook:', err);
+                        console.error(err.stack);
+                    });
+            }            
+        )
+        .catch((err) => {
+            console.error('Error creating Smooch webhook:', err);
+            console.error(err.stack);
+        });
+}
 
 // Create a webhook if one doesn't already exist
 if (process.env.SERVICE_URL) {
@@ -74,18 +77,12 @@ if (process.env.SERVICE_URL) {
             }
         });
 }
+
+
 /*
 app.post('/webhook', function(req, res, next) {
-    const messages = req.body.messages.reduce((prev, current) => {
-        if (current.role === 'appUser') {
-            prev.push(current);
-        }
-        return prev;
-    }, []);
-
-    if (messages.length === 0) {
-        return res.end();
-    }
+    var isPostback = req.body.trigger == "postback";
+    var msg = '';
 
     const appUser = req.body.appUser;
     const userId = appUser.userId || appUser._id;
@@ -98,16 +95,35 @@ app.post('/webhook', function(req, res, next) {
             store,
             userId
         })
-    });
+    });    
 
-    stateMachine.receiveMessage(messages[0])
+    if(!isPostback) {
+        const messages = req.body.messages.reduce((prev, current) => {
+            if (current.role === 'appUser') {
+                prev.push(current);
+            }
+            return prev;
+        }, []);
+
+        if (messages.length === 0 && !isTrigger) {
+            return res.end();
+        }
+
+        msg = messages[0];
+    } else {
+        msg = req.body.postbacks[0];
+        msg.text = msg.action.text;
+    }
+
+    stateMachine.receiveMessage(msg)
         .then(() => res.end())
         .catch((err) => {
             console.error('SmoochBot error:', err);
             console.error(err.stack);
             res.end();
         });
-});     */
+});   */
+
 
 app.post('/webhook', function(req, res, next) {
     const messages = req.body.messages.reduce((prev, current) => {
@@ -142,9 +158,9 @@ app.post('/webhook', function(req, res, next) {
             res.end();
         });
 });            
+ 
 
-
-app.get('/webhook', function (req, res) {
+app.get('/webhook/', function (req, res) {
   if (req.query['hub.verify_token'] === 'e3ee919e328d689bdc2b3a66df9be93fe9a87adc') {
     res.send(req.query['hub.challenge']);
   }
