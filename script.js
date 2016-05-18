@@ -75,14 +75,14 @@ do not have an entry in the scripts.json file. */
                 }
 
                 var response = scriptRules[upperText];
-             /*   var lines = response.split('\n');          Ovo je bilo za get reply deo  umesto ovog ispod             */
-                var lines = response.split(/(<img src=\'[^>]*\'\/>)/);
+                var lines = response.split('\n');                      
+         /*       var lines = response.split(/(<img src=\'[^>]*\'\/>)/);   Ovo je bilo za get reply deo  umesto ovog iznad */
 
                 var p = Promise.resolve();
                 _.each(lines, function(line) {
                     line = line.trim();
-                        if (!line.startsWith("<")) {
 -                        p = p.then(function() {
+                            console.log(line);
 -                            return bot.say(line);
 -                        });
 -                    } else {
