@@ -8,7 +8,7 @@
     "CASUAL":"Maybe you will like https://play.google.com/store/apps/details?id=com.kiloo.subwaysurf",
     "CASUAL GAME": "Maybe you will like this:\n%[link](https://play.google.com/store/apps/details?id=com.kiloo.subwaysurf)",
     "CASUAL GAMES": "Maybe you will like this:\n%[Casual Game](https://play.google.com/store/apps/details?id=com.kiloo.subwaysurf)",
-    "CARDS": "Maybe you will like:\n![imgs](https://raw.githubusercontent.com/Chaslav/GFYbot/master/img/hearthstone.png)",
+    "CARDS": "Maybe you will like:\n![imgs](https://raw.githubusercontent.com/Chaslav/GFYbot/master/img/hearthstone.png)\nYou can find the link here:\nhttps://play.google.com/store/apps/details?id=com.blizzard.wtcg.hearthstone",
     "CARD": "Maybe you will like:\n%[link](https://play.google.com/store/apps/details?id=com.blizzard.wtcg.hearthstone)",
     "CARD GAME": "Ever heard of: \n%[link](https://play.google.com/store/apps/details?id=com.blizzard.wtcg.hearthstone)",
     "TRIVIA": "Maybe you will like https://play.google.com/store/apps/details?id=com.quizup.core",
